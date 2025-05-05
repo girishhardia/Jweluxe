@@ -1,0 +1,29 @@
+ select c.category_name,j.jewellery_name,j.stock_qty,
+jd.jewellery_description,jd.jewellery_price,jd.jewellery_image
+from category c join jewellery j join jewellery_details jd where
+c.category_id = j.category_id and j.jewellery_id = jd.jewellery_id;
+
+select c.id, c.productId, c.price, p.title, p.company, c.quantity, p.image  from
+ cart c, product p where c.productId = p.id and c.userId = ?
+ 
+
+select 
+ca.cart_id,
+c.firstName,
+c.lastName,
+j.jewellery_name,
+ca.qty,
+ca.price
+from customer c,cart ca, jewellery j where c.customer_id = ca.customer_id
+and j.jewellery_id = ca.jewellery_id and c.customer_id = 1  
+
+
+insert into cart(customer_id, jewellery_id, qty, price) values (1, 3, 3,300000);
+
+
+mysql> select sum(price) from cart where customer_id = 1; // total price
+
+select sum(ca.price) from cart ca, jewellery j where j.jewellery_id = ca.jewellery_id group by ca.customer_id;
+
+
+select cu.customer_id,sum(ca.price) from customers cu, cart ca where cu.customer_id = ca.customer_id group by customer_id;

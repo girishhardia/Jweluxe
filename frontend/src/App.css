@@ -1,0 +1,35 @@
+.logo-link,
+.link-link {
+	text-decoration: none;
+	color: black;
+}
+.btn-danger {
+	margin-left: 10px;
+}
+.jewellery {
+	margin-top: 20px;
+	margin-left: 20px;
+}
+.card-img-top {
+	height: 40vh;
+}
+.card {
+	margin: 15px;
+}
+.label-label {
+	color: gray;
+}
+.label1 {
+	margin: 25px;
+}
+.img-profile {
+	width: 30%;
+}
+.btn-profile {
+	text-align: center;
+	margin-top: 20px;
+	background-color: white;
+	border: 2px solid teal;
+	width: 120px;
+	height: 50px;
+}
