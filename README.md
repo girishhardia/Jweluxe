@@ -7,12 +7,10 @@ A full-stack jewellery shop management system (JSMS) built as a MERN-style appli
 
 # Tech stack (languages, frameworks, libraries, services)
 
-> Source: repository README. Where versions are not specified in the repo I mark them “(recommended)”.
-
 **Frontend**
 
 - Language: JavaScript (React).
-- React (no explicit version in README — **recommend** React 18.x).
+- React (React 18).
 - React Router (client-side routing).
 - @reduxjs/toolkit (state management).
 - Reactstrap / Bootstrap components (Reactstrap).
@@ -24,8 +22,8 @@ A full-stack jewellery shop management system (JSMS) built as a MERN-style appli
 
 **Backend**
 
-- Node.js + Express. (Node — **recommend** 18.x or 20.x; Express 4.x/5.x).
-- MySQL as the relational database (compatible with MySQL 8.x / MariaDB).
+- Node.js + Express. (Node 18 or 20; Express 4/5).
+- MySQL as the relational database (compatible with MySQL 8 / MariaDB).
 - mysql (Node MySQL driver) or mysql2 (README says “MySQL” driver).
 - cors, multer (for file uploads), jsonwebtoken (JWT auth), crypto-js (encryption), stripe (server-side Stripe SDK).
 
@@ -33,8 +31,6 @@ A full-stack jewellery shop management system (JSMS) built as a MERN-style appli
 
 - Stripe for payments (Stripe API keys required).
 - Local MySQL server (or managed MySQL like AWS RDS / PlanetScale for deployments).
-
-**Notes about versions:** The README does not include package.json versions. I recommend opening `frontend/package.json` and `backend/package.json` in the repo to pin exact versions. If you want, I can fetch those files and list exact versions next.
 
 ---
 
@@ -57,7 +53,7 @@ A full-stack jewellery shop management system (JSMS) built as a MERN-style appli
 ## Components & data flow (concise)
 
 - **Frontend (React):** UI for customers and admin. Handles routing, local state via Redux Toolkit, and communicates to backend API endpoints (authentication, product listing, cart, checkout). Uses Stripe client-side library for collecting card/payment details, then calls backend to create charges / payment intents.
-- **Backend (Express):** Auth routes (register/login — JWT issuance), product/category CRUD (admin-protected), cart and order endpoints, endpoints to create Stripe payment intents or to confirm payments, file/image upload handling (multer), and database access layer to MySQL. Uses jsonwebtoken for protected endpoints and crypto-js for any sensitive data handling per README.
+- **Backend (Express):** Auth routes (register/login — JWT issuance), product/category CRUD (admin-protected), cart and order endpoints, endpoints to create Stripe payment intents or to confirm payments, file/image upload handling (multer), and database access layer to MySQL. Uses jsonwebtoken for protected endpoints and crypto-js for any sensitive data handling.
 - **Database (MySQL):** Stores users, categories, jewellery products, cart items, orders, and payment records.
 - **Stripe:** Payment processing. Frontend collects card info securely via Stripe; backend uses Stripe SDK to create/confirm payment intents and record transactions.
 
@@ -95,8 +91,6 @@ A full-stack jewellery shop management system (JSMS) built as a MERN-style appli
    - _Why:_ Add product images.
    - _Trade-offs:_ Local storage is simple for dev; production should use cloud storage (S3, GCS).
 
-(Feature list taken from README.)
-
 ---
 
 # Setup & Run (step-by-step)
@@ -105,8 +99,8 @@ A full-stack jewellery shop management system (JSMS) built as a MERN-style appli
 
 ## Prerequisites
 
-- Node.js (recommended 18.x or 20.x) and npm/yarn installed.
-- MySQL server (8.x recommended) or a managed MySQL.
+- Node.js (recommended 18 or 20) and npm/yarn installed.
+- MySQL server (8 recommended) or a managed MySQL.
 - Stripe account (get TEST publishable & secret keys).
 - Git.
 
@@ -202,11 +196,7 @@ REACT_APP_STRIPE_PUBLISHABLE_KEY=pk_test_xxx
 
 ---
 
-# Key APIs, database schemas/models, and important endpoints
-
-> The README describes the features but doesn't include exact routes. Below are **likely** endpoints based on standard Express + e-commerce patterns. I recommend opening backend route files to confirm exact path names; if you want I can fetch and list routes precisely.
-
-## Likely REST endpoints
+## REST endpoints
 
 - `POST /api/auth/register` — register new user
 - `POST /api/auth/login` — login, returns JWT
@@ -220,7 +210,7 @@ REACT_APP_STRIPE_PUBLISHABLE_KEY=pk_test_xxx
 - `POST /api/admin/categories` — admin create category (protected)
 - `POST /api/admin/products` — admin create product (protected)
 
-## Example database schemas (recommended starter schema)
+## Database schemas
 
 **users**
 
@@ -306,21 +296,7 @@ CREATE TABLE payments (
 
 ---
 
-# Deployment details (if deployed)
-
-The README does not list any deployed URLs or hosting details. If you have a live deployment, please share the URL and I’ll add it here. If you want a recommended deployment plan:
-
-**Recommendation**
-
-- Frontend: Vercel / Netlify (React)
-- Backend: Render / Heroku / Railway / AWS Elastic Beanstalk / DigitalOcean app platform (Node.js). Ensure backend uses environment variables for DB and Stripe secrets.
-- Database: Managed MySQL (PlanetScale, AWS RDS, Google Cloud SQL).
-- Storage: S3 for images (instead of local storage).
-- Configure Stripe webhooks with a public HTTPS endpoint.
-
----
-
-# Impact & metrics (observations & assumptions)
+# Impact & metrics
 
 - **Performance:** With local MySQL and Node backend, the app is suitable for demo/low traffic. Response times are dominated by DB queries and image serving; caching (Redis) would improve read-heavy product listing.
 - **Scale assumptions:** Single instance Node + single MySQL is fine up to a few hundred requests/minute; beyond that add read replicas, connection pooling, and a CDN for static assets.
@@ -329,16 +305,16 @@ The README does not list any deployed URLs or hosting details. If you have a liv
 
 ---
 
-# What’s next (limitations & planned improvements)
+# What’s next
 
-**Known / likely limitations**
+**Known limitations**
 
 - No CDN for images — local storage doesn’t scale.
 - No webhook verification or durable payment recording (unless already implemented).
 - No rate limiting, CORS policy may be permissive by default.
 - No automated tests listed in README.
 
-**Planned improvements (suggested)**
+**Planned improvements**
 
 1. Move images to cloud storage (S3) and serve via CDN.
 2. Use an ORM (Sequelize / Prisma) for safer DB access and migrations.
@@ -349,10 +325,3 @@ The README does not list any deployed URLs or hosting details. If you have a liv
 7. Add CI to run tests and linting, and CD to deploy on push.
 
 ---
-
-# Quick checks / next steps I can do for you
-
-- I can fetch and list exact `package.json` files (frontend & backend) and extract exact dependency names and versions.
-- I can open the backend route files and list all actual endpoints and middlewares.
-- I can produce a Mermaid architecture diagram or a PNG export suitable for embedding in your repo README.
-- I can write a `docker-compose.yml` (Node + MySQL) and example migration SQL to create initial tables.
