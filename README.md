@@ -34,9 +34,9 @@ A full-stack jewellery shop management system (JSMS) built as a MERN-style appli
 
 ---
 
-# Architecture (diagram + concise explanation)
+# Architecture
 
-## High level architecture (textual diagram)
+## High level architecture
 
 ```
 [Browser / Client (React)]
@@ -50,7 +50,7 @@ A full-stack jewellery shop management system (JSMS) built as a MERN-style appli
 [MySQL Database (users, categories, products, cart, orders, payments)]
 ```
 
-## Components & data flow (concise)
+## Components & data flow
 
 - **Frontend (React):** UI for customers and admin. Handles routing, local state via Redux Toolkit, and communicates to backend API endpoints (authentication, product listing, cart, checkout). Uses Stripe client-side library for collecting card/payment details, then calls backend to create charges / payment intents.
 - **Backend (Express):** Auth routes (register/login — JWT issuance), product/category CRUD (admin-protected), cart and order endpoints, endpoints to create Stripe payment intents or to confirm payments, file/image upload handling (multer), and database access layer to MySQL. Uses jsonwebtoken for protected endpoints and crypto-js for any sensitive data handling.
